@@ -15,6 +15,9 @@ enabled = true
 min_sources = 3
 similarity_threshold = 0.8
 window_hours = 24
+candidate_top_k = 6
+candidate_min_score = 0.08
+max_articles_per_pass = 20
 
 [[presets.feeds]]
 id = "yonhapnewstv"

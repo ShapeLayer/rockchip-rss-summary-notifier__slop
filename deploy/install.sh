@@ -26,7 +26,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/podman run --rm --name rss-notifier-model --network host --env OLLAMA_HOST=127.0.0.1:11434 --env OLLAMA_NUM_PARALLEL=1 --env OLLAMA_MAX_LOADED_MODELS=1 --volume rss-notifier-models:/root/.ollama docker.io/ollama/ollama:latest
+ExecStart=/usr/bin/podman run --replace --rm --name rss-notifier-model --network host --env OLLAMA_HOST=127.0.0.1:11434 --env OLLAMA_NUM_PARALLEL=1 --env OLLAMA_MAX_LOADED_MODELS=1 --volume rss-notifier-models:/root/.ollama docker.io/ollama/ollama:latest
 ExecStop=/usr/bin/podman stop -t 30 rss-notifier-model
 Restart=on-failure
 RestartSec=10
@@ -68,6 +68,7 @@ if [ "$ready" != 1 ]; then
   exit 1
 fi
 podman exec rss-notifier-model ollama pull qwen2.5:3b
-systemctl --user enable --now rss-notifier.service
+systemctl --user enable rss-notifier.service
+systemctl --user restart rss-notifier.service
 systemctl --user status rss-notifier.service --no-pager
 loginctl show-user "$USER" -p Linger

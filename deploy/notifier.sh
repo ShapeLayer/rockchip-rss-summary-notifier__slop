@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 cd "$(dirname "$0")/.."
-exec podman run --rm --name rss-notifier --network host \
+exec podman run --replace --rm --name rss-notifier --network host \
   --cap-drop all --security-opt no-new-privileges --read-only \
   --tmpfs /tmp:rw,noexec,nosuid,size=32m \
   --env-file "$PWD/deploy/runtime.env" \
