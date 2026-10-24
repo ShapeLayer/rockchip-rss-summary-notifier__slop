@@ -1,0 +1,41 @@
+database = "state/notifier.sqlite3"
+poll_seconds = 300
+
+[model]
+backend = "ollama"
+base_url = "http://127.0.0.1:11434"
+model = "qwen2.5:3b"
+context_tokens = 8192
+max_output_tokens = 2048
+timeout_seconds = 600
+
+[[presets]]
+name = "korean-news"
+enabled = true
+min_sources = 3
+similarity_threshold = 0.8
+window_hours = 24
+
+[[presets.feeds]]
+id = "yonhapnewstv"
+url = "http://www.yonhapnewstv.co.kr/browse/feed/"
+[[presets.feeds]]
+id = "sbs"
+url = "https://news.sbs.co.kr/news/headlineRssFeed.do"
+[[presets.feeds]]
+id = "mbc"
+url = "https://imnews.imbc.com/rss/google_news/narrativeNews.rss"
+[[presets.feeds]]
+id = "chosun"
+url = "https://www.chosun.com/arc/outboundfeeds/rss/?outputType=xml"
+[[presets.feeds]]
+id = "jtbc"
+url = "https://news-ex.jtbc.co.kr/v1/get/rss/issue"
+
+[[presets.dispatchers]]
+id = "console"
+type = "stdout"
+[[presets.dispatchers]]
+id = "telegram-main"
+type = "telegram"
+token_env = "TELEGRAM_BOT_TOKEN"

@@ -1,0 +1,7 @@
+*
+!Containerfile
+!rss_notifier
+!rss_notifier/**
+!configs
+!configs/**
+**/__pycache__
